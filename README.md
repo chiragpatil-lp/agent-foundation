@@ -14,7 +14,7 @@ uv run init_template.py
 # Or preview changes first: uv run init_template.py --dry-run
 ```
 
-This renames the package, updates configuration files, and resets the changelog. Review changes with `git status`, then commit.
+This renames the package, updates configuration files, resets the changelog, and creates a fresh CODEOWNERS file. Review changes with `git status`, then commit.
 
 ## Quickstart
 

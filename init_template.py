@@ -14,6 +14,7 @@ The script performs:
 - Directory renaming (src/adk_docker_uv → src/{package_name})
 - File content updates (package imports, configuration, documentation)
 - GitHub Actions badge URL updates
+- CODEOWNERS replacement with fresh template
 - Version reset to 0.1.0 in pyproject.toml
 - CHANGELOG.md replacement with fresh template
 - UV lockfile regeneration
@@ -213,7 +214,7 @@ def get_validated_config(dry_run: bool = False) -> TemplateConfig:
     """
     if dry_run:
         print("🔍 DRY RUN MODE - Using example values\n")
-        return TemplateConfig(repo_name="my-agent", github_owner="example-user")
+        return TemplateConfig(repo_name="my-agent", github_owner="example-owner")
 
     print("🚀 Initializing repository from template\n")
     print("This script will:")
@@ -222,9 +223,10 @@ def get_validated_config(dry_run: bool = False) -> TemplateConfig:
     print("  3. Update configuration files")
     print("  4. Update documentation")
     print("  5. Update GitHub Actions badge URLs")
-    print("  6. Reset version to 0.1.0")
-    print("  7. Reset CHANGELOG.md")
-    print("  8. Regenerate UV lockfile\n")
+    print("  6. Reset CODEOWNERS file")
+    print("  7. Reset version to 0.1.0")
+    print("  8. Reset CHANGELOG.md")
+    print("  9. Regenerate UV lockfile\n")
 
     # Auto-detect repository name and owner from git
     github_info = get_github_info_from_git()
@@ -386,6 +388,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         print("  ✅ Replaced CHANGELOG.md")
 
 
+def replace_codeowners(dry_run: bool = False) -> None:
+    """Replace CODEOWNERS with fresh template.
+
+    Args:
+        dry_run: If True, only print what would be changed.
+    """
+    codeowners_path = Path(".github/CODEOWNERS")
+
+    fresh_codeowners = """# CODEOWNERS - Automatically request reviews from code owners
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+# * @your-github-username
+"""
+
+    if dry_run:
+        print("  📝 Would replace .github/CODEOWNERS with fresh template")
+    else:
+        codeowners_path.write_text(fresh_codeowners)
+        print("  ✅ Replaced .github/CODEOWNERS")
+
+
 def run_uv_sync(dry_run: bool = False) -> None:
     """Regenerate UV lockfile.
 
@@ -432,6 +456,7 @@ def print_summary(config: TemplateConfig, dry_run: bool = False) -> None:
     print("  • Removed template author from pyproject.toml")
     print("  • Reset version to 0.1.0 in pyproject.toml")
     print("  • Replaced CHANGELOG.md with fresh template")
+    print("  • Replaced CODEOWNERS with fresh template")
     print("  • Regenerated UV lockfile")
 
     if not dry_run:
@@ -517,6 +542,10 @@ def main() -> NoReturn:
         # Replace CHANGELOG
         print("\n📄 Replacing CHANGELOG:")
         replace_changelog(dry_run)
+
+        # Replace CODEOWNERS
+        print("\n👥 Replacing CODEOWNERS:")
+        replace_codeowners(dry_run)
 
         # Regenerate lockfile
         print("\n🔒 Regenerating lockfile:")
