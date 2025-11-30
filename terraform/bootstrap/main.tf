@@ -39,15 +39,21 @@ resource "google_project_service" "main" {
   disable_on_destroy = false
 }
 
+data "github_repository" "agent" {
+  full_name = "${local.repository_owner}/${local.repository_name}"
+}
+
 resource "google_iam_workload_identity_pool" "github" {
-  workload_identity_pool_id = "${local.agent_name}-github"
-  display_name              = "GitHub Actions: ${local.agent_name}"
+  workload_identity_pool_id = substr("actions-${data.github_repository.agent.repo_id}", 0, 32)
+  display_name              = "GitHub Actions"
+  description               = "GitHub Actions - repository: ${local.repository_owner}/${local.repository_name}, repo ID: ${data.github_repository.agent.repo_id}"
 }
 
 resource "google_iam_workload_identity_pool_provider" "github" {
-  workload_identity_pool_provider_id = "${local.agent_name}-oidc"
+  workload_identity_pool_provider_id = substr("gh-oidc-${data.github_repository.agent.repo_id}", 0, 32)
   workload_identity_pool_id          = google_iam_workload_identity_pool.github.workload_identity_pool_id
-  display_name                       = "GitHub OIDC: ${local.agent_name}"
+  display_name                       = "GitHub OIDC"
+  description                        = "GitHub OIDC - repository: ${local.repository_owner}/${local.repository_name}, repo ID: ${data.github_repository.agent.repo_id}"
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
