@@ -1,0 +1,2071 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../observability/">
+      
+      
+        <link rel="next" href="../validating-multiplatform-builds/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Terraform Infrastructure - Agent Foundation Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#terraform-infrastructure-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agent Foundation Docs" class="md-header__button md-logo" aria-label="Agent Foundation Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agent Foundation Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Terraform Infrastructure
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../bootstrap-setup/" class="md-tabs__link">
+          
+  
+  
+  Infrastructure
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agent Foundation Docs" class="md-nav__button md-logo" aria-label="Agent Foundation Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agent Foundation Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bootstrap-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bootstrap Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cicd-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-compose-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Compose Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dockerfile-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dockerfile Strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terraform Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terraform Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Required Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gcp-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. GCP Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-github-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. GitHub Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Environment Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-module-local-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap Module - Local State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-module-remote-state-in-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Module - Remote State in GCS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bootstrap-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap Module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bootstrap Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plan-and-apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plan and Apply
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-github-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify GitHub Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-dotenv-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security: Dotenv Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources-created_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-specific-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment-Specific Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iam-and-permissions-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM and Permissions Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terraform-variable-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terraform Variable Overrides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-in-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage in CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-execution-not-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Execution (Not Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workspace-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workspace Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update Bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend-initialization-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend Initialization Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-locking-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Locking Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-variables-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Variables Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-with-remote-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap with Remote State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Rationale
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validating-multiplatform-builds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validating Multiplatform Builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Required Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gcp-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. GCP Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-github-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. GitHub Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Environment Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-module-local-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap Module - Local State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-module-remote-state-in-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Module - Remote State in GCS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bootstrap-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap Module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bootstrap Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plan-and-apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plan and Apply
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-github-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify GitHub Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-dotenv-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security: Dotenv Provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources-created_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-specific-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment-Specific Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iam-and-permissions-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM and Permissions Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terraform-variable-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terraform Variable Overrides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-in-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage in CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-execution-not-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Execution (Not Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workspace-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workspace Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Operations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update Bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend-initialization-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend Initialization Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-locking-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Locking Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-variables-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Variables Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-with-remote-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap with Remote State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Rationale
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="terraform-infrastructure-guide">Terraform Infrastructure Guide</h1>
+<p>This guide explains the Terraform infrastructure setup for deploying the LLM agent to Google Cloud Platform.</p>
+<h2 id="overview">Overview</h2>
+<p>The project uses <strong>two Terraform modules</strong> with distinct responsibilities:</p>
+<ul>
+<li><strong><code>terraform/bootstrap/</code></strong> - One-time CI/CD infrastructure setup</li>
+<li>Workload Identity Federation for GitHub Actions</li>
+<li>Artifact Registry for Docker images</li>
+<li>GCS bucket for main module's Terraform state</li>
+<li>GitHub Actions Variables (auto-configured)</li>
+<li>
+<p><strong>State management:</strong> Local state (default)</p>
+</li>
+<li>
+<p><strong><code>terraform/main/</code></strong> - Application deployment (runs in CI/CD)</p>
+</li>
+<li>Cloud Run service configuration</li>
+<li>Service account and IAM bindings</li>
+<li>Vertex AI Reasoning Engine for session/memory persistence</li>
+<li>GCS bucket for artifacts</li>
+<li><strong>State management:</strong> Remote state in GCS (bucket created by bootstrap)</li>
+<li><strong>Execution:</strong> Designed for GitHub Actions (local execution optional, see Advanced Usage)</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="1-required-tools">1. Required Tools</h3>
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/downloads">Terraform</a> &gt;= 1.14.0</li>
+<li><a href="https://cloud.google.com/sdk/docs/install">Google Cloud SDK</a> (gcloud CLI)</li>
+<li><a href="https://cli.github.com/">GitHub CLI</a> (gh) - for GitHub Variables setup</li>
+</ul>
+<h3 id="2-gcp-authentication">2. GCP Authentication</h3>
+<p>Authenticate with Google Cloud:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcloud<span class="w"> </span>auth<span class="w"> </span>application-default<span class="w"> </span>login
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span>YOUR_PROJECT_ID
+</span></code></pre></div>
+<h3 id="3-github-authentication">3. GitHub Authentication</h3>
+<p>Authenticate with GitHub (for bootstrap module to create Variables):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gh<span class="w"> </span>auth<span class="w"> </span>login
+</span></code></pre></div>
+<h3 id="4-environment-configuration">4. Environment Configuration</h3>
+<p>Create <code>.env</code> from <code>.env.example</code> and configure required variables:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Edit .env with your values</span>
+</span></code></pre></div>
+<p><strong>Required variables in <code>.env</code>:</strong>
+- <code>GOOGLE_CLOUD_PROJECT</code> - GCP project ID
+- <code>GOOGLE_CLOUD_LOCATION</code> - GCP region (e.g., <code>us-central1</code>)
+- <code>AGENT_NAME</code> - Your agent name (e.g., <code>your-agent-name</code>)
+- <code>OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT</code> - Capture LLM content in traces (TRUE/FALSE)</p>
+<p><strong>Required variables in <code>terraform/bootstrap/terraform.tfvars</code>:</strong>
+- <code>repository_owner</code> - GitHub username or organization
+- <code>repository_name</code> - Repository name</p>
+<p>See <a href="../bootstrap-setup/">Bootstrap Setup</a> for detailed configuration steps.</p>
+<h2 id="state-management">State Management</h2>
+<h3 id="bootstrap-module-local-state">Bootstrap Module - Local State</h3>
+<p>The bootstrap module uses <strong>local state by default</strong> because:
+- Bootstrap is a one-time operation that creates CI/CD infrastructure
+- Simpler setup (no chicken-egg problem with state buckets)
+- Local state file can be committed to version control if desired
+- Team collaboration can configure remote state if needed (see Advanced Usage)</p>
+<p><strong>State location:</strong> <code>terraform/bootstrap/terraform.tfstate</code> (gitignored by default)</p>
+<h3 id="main-module-remote-state-in-gcs">Main Module - Remote State in GCS</h3>
+<p>The main module uses <strong>remote state in GCS</strong> because:
+- CI/CD requires shared state between workflow runs
+- State locking prevents concurrent modification conflicts
+- Versioning enables recovery from state corruption
+- GitHub Actions has automatic access via WIF</p>
+<p><strong>State bucket:</strong> Created by bootstrap module, name follows pattern <code>terraform-state-{agent-name}-{random-suffix}</code></p>
+<p><strong>State location:</strong> <code>gs://terraform-state-{agent-name}-{random-suffix}/main/</code></p>
+<h2 id="bootstrap-module">Bootstrap Module</h2>
+<h3 id="purpose">Purpose</h3>
+<p>Creates one-time infrastructure that supports automated CI/CD deployment. Run this module <strong>once</strong> from your local machine to set up the deployment pipeline.</p>
+<h3 id="resources-created">Resources Created</h3>
+<ol>
+<li><strong>Workload Identity Federation</strong> - GitHub OIDC provider with IAM bindings (see <code>terraform/bootstrap/main.tf</code> for roles)</li>
+<li><strong>Artifact Registry</strong> - Docker repository with cleanup policies (keeps 5 recent, <code>buildcache</code> tag indefinite)</li>
+<li><strong>GCS Bucket for Main Module State</strong> - Versioned bucket for remote state</li>
+<li><strong>GitHub Actions Variables</strong> - Auto-configured (see <a href="../cicd-setup/#github-variables-auto-created">CI/CD Guide</a> for list)</li>
+</ol>
+<h3 id="configuration">Configuration</h3>
+<p>Bootstrap reads configuration from <code>.env</code> using the <code>dotenv</code> provider:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># terraform/bootstrap uses dotenv provider</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kr">data</span><span class="w"> </span><span class="nc">&quot;dotenv&quot;</span><span class="w"> </span><span class="nv">&quot;config&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="na">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${path.cwd}/.env&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Security:</strong> Dotenv provider version <code>1.2.9</code> is pinned. See <a href="#security-dotenv-provider">Security: Dotenv Provider</a> section below.</p>
+<h3 id="usage">Usage</h3>
+<h4 id="initialize">Initialize</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Run from repository root using -chdir flag</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>init
+</span></code></pre></div>
+<h4 id="plan-and-apply">Plan and Apply</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Preview changes</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>plan
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Apply changes (creates all CI/CD infrastructure)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>apply
+</span></code></pre></div>
+<p>Bootstrap typically completes in 2-3 minutes and outputs:
+- Terraform state bucket name
+- WIF provider name
+- Registry URI
+- List of GitHub Variables created</p>
+<h4 id="verify-github-variables">Verify GitHub Variables</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># List all repository variables</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gh<span class="w"> </span>variable<span class="w"> </span>list
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Expected output:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># ARTIFACT_REGISTRY_LOCATION     us-central1</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># ARTIFACT_REGISTRY_URI          us-central1-docker.pkg.dev/...</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># GCP_LOCATION                   us-central1</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># GCP_PROJECT_ID                 your-project-id</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># GCP_WORKLOAD_IDENTITY_PROVIDER projects/.../locations/global/...</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># IMAGE_NAME                     your-agent-name</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c1"># TERRAFORM_STATE_BUCKET         terraform-state-your-agent-name-a1b2c3d4</span>
+</span></code></pre></div>
+<h3 id="security-dotenv-provider">Security: Dotenv Provider</h3>
+<p>Bootstrap uses <code>germanbrew/dotenv@1.2.9</code> for <code>.env</code> file reading. Version is pinned in <code>terraform/bootstrap/terraform.tf</code>. Provider is local-only (bootstrap execution), not used in CI/CD.</p>
+<h2 id="main-module">Main Module</h2>
+<h3 id="purpose_1">Purpose</h3>
+<p>Deploys the LLM agent application to Cloud Run. Designed to run in <strong>GitHub Actions CI/CD</strong> as part of the automated deployment pipeline.</p>
+<p><strong>Execution model:</strong>
+- <strong>Primary:</strong> GitHub Actions (automated on merge to main)
+- <strong>Secondary:</strong> Local execution possible for infrastructure-only changes (see Advanced Usage)</p>
+<h3 id="resources-created_1">Resources Created</h3>
+<ol>
+<li><strong>Service Account</strong> - Attached to Cloud Run with IAM roles (see <code>terraform/main/main.tf</code>)</li>
+<li><strong>Vertex AI Reasoning Engine</strong> - Session/memory persistence (resource name passed via <code>AGENT_ENGINE</code>)</li>
+<li><strong>GCS Bucket for Artifacts</strong> - Versioned storage for agent artifacts</li>
+<li><strong>Cloud Run Service</strong> - HTTP/2 on port 8000, auto-scaling 0-100 instances, <code>RELOAD_AGENTS</code> hardcoded to FALSE</li>
+</ol>
+<h3 id="environment-specific-configuration">Environment-Specific Configuration</h3>
+<p><strong>Resource naming:</strong> All GCP resources use <code>local.resource_name = "${var.agent_name}-${terraform.workspace}"</code> (e.g., <code>my-agent-dev</code>, <code>my-agent-prod</code>)</p>
+<p><strong>Billing labels:</strong> Resources tagged with <code>application = var.agent_name</code> and <code>environment = terraform.workspace</code> for cost tracking</p>
+<p><strong>Observability:</strong> Cloud Run services automatically receive <code>TELEMETRY_NAMESPACE = terraform.workspace</code> env var, appearing as <code>service.namespace</code> in traces/logs for environment filtering</p>
+<h3 id="iam-and-permissions-model">IAM and Permissions Model</h3>
+<p><strong>Project-level IAM assumption:</strong> Dedicated GCP project per deployment. Service account has project-level roles for all resources.</p>
+<p><strong>App service account roles:</strong> See <code>terraform/main/main.tf</code> for complete list (Vertex AI, logging, storage access).</p>
+<p><strong>Storage access:</strong> Project-level storage roles grant access to buckets within the same project only. For external buckets in different projects, configure cross-project IAM separately.</p>
+<p><strong>GitHub Actions WIF roles:</strong> See <code>terraform/bootstrap/main.tf</code> for complete list.</p>
+<h3 id="configuration_1">Configuration</h3>
+<p>Main module receives <strong>all inputs via Terraform variables</strong>. No <code>.env</code> file reading.</p>
+<p><strong>In GitHub Actions</strong> (via <code>terraform-plan-apply.yml</code> workflow):
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">env</span><span class="p">:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">TF_VAR_project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ vars.GCP_PROJECT_ID }}</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">TF_VAR_location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ vars.GCP_LOCATION }}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">TF_VAR_agent_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ vars.IMAGE_NAME }}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">TF_VAR_terraform_state_bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ vars.TERRAFORM_STATE_BUCKET }}</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="nt">TF_VAR_docker_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ inputs.docker_image }}</span>
+</span></code></pre></div></p>
+<p><strong>Backend configuration</strong> (bucket name):
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># In GitHub Actions</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>terraform<span class="w"> </span>init<span class="w"> </span>-backend-config<span class="o">=</span><span class="s2">&quot;bucket=</span><span class="si">${</span><span class="p">{ vars.TERRAFORM_STATE_BUCKET </span><span class="si">}</span><span class="s2">}&quot;</span>
+</span></code></pre></div></p>
+<p><strong>Variable details:</strong>
+- <strong>Required:</strong> <code>project</code>, <code>location</code>, <code>agent_name</code>, <code>terraform_state_bucket</code>, <code>docker_image</code>
+- <strong>Optional with defaults:</strong> <code>log_level</code> (INFO), <code>serve_web_interface</code> (false), <code>root_agent_model</code> (gemini-2.5-flash)
+- <strong>Nullable with defaults:</strong> <code>agent_engine</code> (uses created resource), <code>artifact_service_uri</code> (uses created bucket)</p>
+<h3 id="terraform-variable-overrides">Terraform Variable Overrides</h3>
+<p>The main module accepts optional runtime configuration variables that can be set via GitHub Actions Variables.</p>
+<p><strong>How it works:</strong>
+1. GitHub Actions Variables are set in the repository (e.g., <code>LOG_LEVEL=DEBUG</code>)
+2. CI/CD workflow maps them to <code>TF_VAR_*</code> environment variables
+3. Terraform uses <code>coalesce()</code> to fall back to defaults if null or empty</p>
+<p><strong>Empty string handling:</strong>
+- GitHub Actions defaults unset Variables to empty strings (<code>""</code>)
+- <code>coalesce(var.x, "default")</code> applies defaults when null or empty</p>
+<p><strong>Available overrides:</strong>
+- <code>ADK_SUPPRESS_EXPERIMENTAL_FEATURE_WARNINGS</code> (default: TRUE)
+- <code>AGENT_ENGINE</code> (default: auto-created Reasoning Engine)
+- <code>ALLOW_ORIGINS</code> (default: <code>["http://127.0.0.1", "http://127.0.0.1:8000"]</code>)
+- <code>ARTIFACT_SERVICE_URI</code> (default: auto-created GCS bucket)
+- <code>LOG_LEVEL</code> (default: INFO)
+- <code>ROOT_AGENT_MODEL</code> (default: gemini-2.5-flash)
+- <code>SERVE_WEB_INTERFACE</code> (default: FALSE)</p>
+<p>See <code>.github/workflows/terraform-plan-apply.yml</code> for the complete mapping.</p>
+<h3 id="usage-in-cicd">Usage in CI/CD</h3>
+<p>Main module runs automatically in GitHub Actions. See <a href="../cicd-setup/">CI/CD Workflow Guide</a> for complete details.</p>
+<h3 id="local-execution-not-recommended">Local Execution (Not Recommended)</h3>
+<p>The main module is designed for GitHub Actions execution. Local execution is possible but not supported. All Terraform inputs must be provided via <code>TF_VAR_*</code> environment variables, and the backend bucket must be configured via <code>-backend-config</code> flag.</p>
+<p><strong>Note:</strong> The <code>docker_image</code> variable is nullable and defaults to the previous deployment's image from remote state, allowing infrastructure-only updates without specifying an image URI.</p>
+<h2 id="workspace-management">Workspace Management</h2>
+<p>Workspaces provide environment isolation (default, dev, stage, prod).</p>
+<h3 id="workspaces">Workspaces</h3>
+<p><strong>Bootstrap:</strong> Uses <code>default</code> workspace (workspaces not recommended for local state).</p>
+<p><strong>Main:</strong> Uses workspaces for environment isolation in CI/CD (default/dev/stage/prod). Workspace selection happens automatically via the <code>--or-create</code> flag in workflows.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># List workspaces</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>workspace<span class="w"> </span>list
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Create workspace (manual)</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>workspace<span class="w"> </span>new<span class="w"> </span>stage
+</span></code></pre></div>
+<h2 id="common-operations">Common Operations</h2>
+<h3 id="view-outputs">View Outputs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Bootstrap outputs</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>output
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>output<span class="w"> </span>-raw<span class="w"> </span>terraform_state_bucket
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># Main outputs</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>output
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>output<span class="w"> </span>-json<span class="w"> </span>cloud_run_services
+</span></code></pre></div>
+<h3 id="update-bootstrap">Update Bootstrap</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># After modifying .env or bootstrap/*.tf</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>plan
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>apply
+</span></code></pre></div>
+<h3 id="inspect-state">Inspect State</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># List resources in state</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>state<span class="w"> </span>list
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Show specific resource</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>state<span class="w"> </span>show<span class="w"> </span>google_vertex_ai_reasoning_engine.session_and_memory
+</span></code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="backend-initialization-fails">Backend Initialization Fails</h3>
+<p><strong>Error:</strong> <code>Backend configuration changed</code></p>
+<p><strong>Solution:</strong> Reinitialize with <code>-reconfigure</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>init<span class="w"> </span>-reconfigure<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>-backend-config<span class="o">=</span><span class="s2">&quot;bucket=</span><span class="si">${</span><span class="nv">STATE_BUCKET</span><span class="si">}</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<h3 id="state-locking-errors">State Locking Errors</h3>
+<p><strong>Error:</strong> <code>Error acquiring the state lock</code></p>
+<p><strong>Cause:</strong> Previous Terraform operation didn't complete cleanly.</p>
+<p><strong>Solution:</strong> Force unlock (use with caution):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Get lock ID from error message</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>force-unlock<span class="w"> </span>LOCK_ID
+</span></code></pre></div>
+<h3 id="github-variables-issues">GitHub Variables Issues</h3>
+<p>For GitHub Variables troubleshooting, see <a href="../cicd-setup/#troubleshooting">CI/CD Workflow Guide</a>.</p>
+<h2 id="cicd-integration">CI/CD Integration</h2>
+<p>The Terraform modules are designed for GitHub Actions automation:</p>
+<p><strong>Bootstrap → GitHub Variables → Workflows</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>terraform/bootstrap
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  ↓ (creates)
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>GitHub Variables (GCP_PROJECT_ID, TERRAFORM_STATE_BUCKET, etc.)
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  ↓ (used by)
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>.github/workflows/terraform-plan-apply.yml
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>  ↓ (runs)
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>terraform/main (with TF_VAR_* from Variables)
+</span></code></pre></div>
+<p>See <a href="../cicd-setup/">CI/CD Workflow Guide</a> for complete workflow details.</p>
+<h2 id="advanced-configuration">Advanced Configuration</h2>
+<h3 id="bootstrap-with-remote-state">Bootstrap with Remote State</h3>
+<p>The bootstrap module uses local state by default. Remote state via GCS backend is possible by creating a <code>backend.tf</code> file, but this is not the recommended or supported configuration for this template.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ol>
+<li>✅ Configure <code>.env</code> file</li>
+<li>✅ Run bootstrap module (creates CI/CD infrastructure)</li>
+<li>✅ Verify GitHub Variables created</li>
+<li>📖 See <a href="../cicd-setup/">CI/CD Workflow Guide</a> for automated deployment</li>
+<li>📖 See <a href="../development/">Development Guide</a> for local development</li>
+</ol>
+<h2 id="design-rationale">Design Rationale</h2>
+<p><strong>Local state for bootstrap:</strong>
+- One-time operation that creates CI/CD infrastructure
+- No chicken-egg problem (no state bucket needed to create state bucket)
+- Simpler setup for template users</p>
+<p><strong>TF_VAR_* in main module (no dotenv):</strong>
+- Standard Terraform pattern for CI/CD
+- No <code>.env</code> file exposure in workflows
+- Single execution environment to support</p>
+<p><strong>Agent Engine in main (not bootstrap):</strong>
+- Lifecycle coupling with application deployment
+- Environment isolation via workspaces
+- No cross-module remote state dependencies</p>
+<p><strong>Local development:</strong> Optionally copy Agent Engine resource name to <code>.env</code> after first deployment for persistent sessions in local development.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

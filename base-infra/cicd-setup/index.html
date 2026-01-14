@@ -1,0 +1,1631 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../bootstrap-setup/">
+      
+      
+        <link rel="next" href="../development/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>CI/CD Setup - Agent Foundation Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cicd-workflow-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Agent Foundation Docs" class="md-header__button md-logo" aria-label="Agent Foundation Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agent Foundation Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CI/CD Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../bootstrap-setup/" class="md-tabs__link">
+          
+  
+  
+  Infrastructure
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Agent Foundation Docs" class="md-nav__button md-logo" aria-label="Agent Foundation Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agent Foundation Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bootstrap-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bootstrap Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Setup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-variables-auto-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Variables (Auto-Created)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#four-workflow-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four-Workflow Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-tagging-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Tagging Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Tagging Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Request Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-branch-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Branch Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-tag-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Tag Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-request-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Request Comments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job Summaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workload-identity-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workload Identity Federation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trace-deployed-image-to-git-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace Deployed Image to Git Commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Missing Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wif-authentication-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WIF Authentication Failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-push-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Push Denied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-comment-not-posted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR Comment Not Posted
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-cache-miss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build Cache Miss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terraform-state-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terraform State Lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Timeouts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-compose-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Compose Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dockerfile-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dockerfile Strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform-infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terraform Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validating-multiplatform-builds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validating Multiplatform Builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-variables-auto-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Variables (Auto-Created)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#four-workflow-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Four-Workflow Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-tagging-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Tagging Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Tagging Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Request Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-branch-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Branch Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-tag-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Tag Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-request-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Request Comments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job Summaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workload-identity-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workload Identity Federation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trace-deployed-image-to-git-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace Deployed Image to Git Commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Missing Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wif-authentication-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WIF Authentication Failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-push-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Push Denied
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-comment-not-posted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR Comment Not Posted
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-cache-miss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build Cache Miss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terraform-state-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terraform State Lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Timeouts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cicd-workflow-guide">CI/CD Workflow Guide</h1>
+<p>This guide explains the GitHub Actions workflows that automate building and deploying the LLM agent to Cloud Run.</p>
+<h2 id="overview">Overview</h2>
+<p>The project uses <strong>automated CI/CD</strong> via GitHub Actions with four workflows:</p>
+<ol>
+<li><strong><code>ci-cd.yml</code></strong> - Orchestrator (meta → build → deploy)</li>
+<li><strong><code>metadata-extract.yml</code></strong> - Reusable metadata extraction</li>
+<li><strong><code>docker-build.yml</code></strong> - Reusable Docker image build</li>
+<li><strong><code>terraform-plan-apply.yml</code></strong> - Reusable Terraform deployment</li>
+</ol>
+<p><strong>Key principle:</strong> Zero manual intervention after initial setup. Merge to main = automatic deployment.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Complete one-time bootstrap setup before using CI/CD workflows:</p>
+<ol>
+<li>✅ Run the Terraform bootstrap module (see <a href="../bootstrap-setup/">Bootstrap Setup</a>)</li>
+<li>✅ Verify GitHub Variables created: <code>gh variable list</code></li>
+</ol>
+<p>Bootstrap creates all CI/CD infrastructure: WIF, Artifact Registry, GitHub Variables, Terraform state bucket.</p>
+<h2 id="github-variables-auto-created">GitHub Variables (Auto-Created)</h2>
+<p>The bootstrap module creates these Variables in your repository:</p>
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Created By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GCP_PROJECT_ID</code></td>
+<td>GCP project ID</td>
+<td>Bootstrap</td>
+</tr>
+<tr>
+<td><code>GCP_LOCATION</code></td>
+<td>GCP region</td>
+<td>Bootstrap</td>
+</tr>
+<tr>
+<td><code>IMAGE_NAME</code></td>
+<td>Docker image name (also used as agent_name)</td>
+<td>Bootstrap</td>
+</tr>
+<tr>
+<td><code>GCP_WORKLOAD_IDENTITY_PROVIDER</code></td>
+<td>WIF provider resource name</td>
+<td>Bootstrap</td>
+</tr>
+<tr>
+<td><code>ARTIFACT_REGISTRY_URI</code></td>
+<td>Registry URI</td>
+<td>Bootstrap</td>
+</tr>
+<tr>
+<td><code>ARTIFACT_REGISTRY_LOCATION</code></td>
+<td>Registry location</td>
+<td>Bootstrap</td>
+</tr>
+<tr>
+<td><code>TERRAFORM_STATE_BUCKET</code></td>
+<td>GCS bucket for main module state</td>
+<td>Bootstrap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> These are Variables (not Secrets) because they're resource identifiers, not credentials. Security comes from WIF IAM policies, not obscurity.</p>
+<h2 id="workflow-architecture">Workflow Architecture</h2>
+<h3 id="four-workflow-pattern">Four-Workflow Pattern</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ci-cd.yml (orchestrator)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── meta (calls metadata-extract.yml) - Extract metadata and determine tags
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── build (calls docker-build.yml) - Build multi-platform image
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└── deploy (calls terraform-plan-apply.yml) - Deploy to Cloud Run
+</span></code></pre></div>
+<p><strong>Benefits:</strong>
+- Clean separation of concerns
+- Reusable workflows called by orchestrator (no manual triggers)
+- Direct output passing (no tag reconstruction)
+- Single orchestrator controls the full pipeline</p>
+<h3 id="workflow-flow">Workflow Flow</h3>
+<p><strong>On Pull Request:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1. metadata-extract.yml extracts: pr-{number}-{sha}
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2. docker-build.yml pushes: registry/image:pr-123-abc123
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>3. terraform-plan-apply.yml runs: plan (no apply)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>4. Plan output posted as PR comment
+</span></code></pre></div></p>
+<p><strong>On Push to Main or Version Tag:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1. metadata-extract.yml extracts: {sha}, latest, {version} (if tagged)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>2. docker-build.yml pushes: registry/image:abc123 + latest (+ v1.0.0 if tagged)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>3. terraform-plan-apply.yml runs: apply (auto-approved)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>4. Cloud Run service updated with image digest
+</span></code></pre></div></p>
+<p><strong>On Manual Dispatch:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1. metadata-extract.yml runs (uses current commit SHA)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2. docker-build.yml builds image
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>3. terraform-plan-apply.yml runs plan or apply (user choice)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>4. Workspace selection: default/dev/stage/prod
+</span></code></pre></div></p>
+<h2 id="image-tagging-strategy">Image Tagging Strategy</h2>
+<h3 id="pull-request-builds">Pull Request Builds</h3>
+<p><strong>Format:</strong> <code>pr-{number}-{sha}</code> (e.g., <code>pr-123-abc1234</code>)
+- Unique per commit, isolated from main builds</p>
+<h3 id="main-branch-builds">Main Branch Builds</h3>
+<p><strong>Tags:</strong> <code>{sha}</code> (primary), <code>latest</code>, <code>{version}</code> (if tagged)</p>
+<p><strong>Example:</strong> Commit <code>abc1234</code> tagged <code>v0.9.0</code> produces:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>registry/image:abc1234  registry/image:latest  registry/image:v0.9.0
+</span></code></pre></div></p>
+<p><strong>Deployment uses image digest</strong> (not tags) to ensure every rebuild triggers a new Cloud Run revision.</p>
+<h3 id="version-tag-builds">Version Tag Builds</h3>
+<p><strong>Trigger:</strong> Push git tag matching <code>v*</code> (e.g., <code>git push origin v0.4.0</code>)</p>
+<p>Automatically builds version-tagged image after release PR is merged. Safe because tags point to already-reviewed code and only authorized users can push tags.</p>
+<h2 id="workflow-behavior">Workflow Behavior</h2>
+<p><strong>Concurrency:</strong> PRs cancel in-progress builds; main runs sequentially. Per-workspace Terraform locking prevents state corruption.</p>
+<p><strong>Path filtering:</strong> Triggers on code/config changes, ignores docs. See <code>.github/workflows/ci-cd.yml</code> for complete path list. Tag triggers (<code>v*</code>) always run.</p>
+<p><strong>Multi-platform builds:</strong> Images built for multiple platforms (see <code>docker-build.yml</code>). Manifest auto-selects architecture.</p>
+<p><strong>Build cache:</strong> Registry cache with protected <code>buildcache</code> tag provides significant speedup on cache hits.</p>
+<h2 id="shell-configuration">Shell Configuration</h2>
+<p><strong><code>bash {0}</code> pattern:</strong> Terraform plan step uses <code>shell: bash {0}</code> to override default <code>bash -e</code> behavior. This allows capturing output on failure for job summaries and PR comments. Default behavior exits immediately on error, preventing output capture. See <a href="https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference">GitHub Actions workflow syntax</a>.</p>
+<h2 id="pull-request-comments">Pull Request Comments</h2>
+<p>terraform-plan-apply.yml posts formatted comments showing format/init/validation/plan results with collapsible sections for detailed output.</p>
+<h2 id="job-summaries">Job Summaries</h2>
+<p>Both the metadata extraction and Terraform deployment jobs generate formatted job summaries visible in the GitHub Actions UI. These summaries provide quick insight into build and deployment status without requiring log analysis.</p>
+<p><strong>Metadata Extraction Summary</strong> includes:
+- Build context (PR, main branch, tag push, manual)
+- Branch/tag name and commit SHA
+- All image tags (formatted as bulleted list)</p>
+<p><strong>Terraform Deployment Summary</strong> includes:
+- Workspace and action (plan/apply)
+- Docker image being deployed
+- Step-by-step outcomes (format, init, validate, plan, apply)
+- Collapsible plan output (first 50 lines)
+- Deployed resources (Cloud Run URLs, service account, Agent Engine ID, artifact bucket) for successful applies</p>
+<p>Job summaries appear at the top of each workflow run, providing a quick overview without navigating through individual job logs.</p>
+<h2 id="workload-identity-federation">Workload Identity Federation</h2>
+<p>Keyless authentication via WIF: GitHub Actions requests OIDC token, GCP validates against WIF provider, grants temporary credentials scoped to repository.</p>
+<p><strong>IAM roles:</strong> See <code>terraform/bootstrap/main.tf</code> for complete role list.</p>
+<h2 id="testing-workflows">Testing Workflows</h2>
+<p>Manual trigger via <code>ci-cd.yml</code> orchestrator (also available via GitHub UI: Actions &gt; CI/CD Pipeline &gt; Run workflow):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Trigger full pipeline (build + deploy)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>ci-cd.yml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>-f<span class="w"> </span><span class="nv">workspace</span><span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span>-f<span class="w"> </span><span class="nv">terraform_action</span><span class="o">=</span>plan
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Verify deployment</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--workflow<span class="o">=</span>ci-cd.yml<span class="w"> </span>--limit<span class="w"> </span><span class="m">5</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>gh<span class="w"> </span>run<span class="w"> </span>view<span class="w"> </span>RUN_ID
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>describe<span class="w"> </span>IMAGE_NAME<span class="w"> </span>--region<span class="o">=</span>us-central1<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;value(status.url)&quot;</span>
+</span></code></pre></div>
+<p><strong>Note:</strong> <code>docker-build.yml</code> and <code>terraform-plan-apply.yml</code> are reusable workflows without manual triggers. Use <code>ci-cd.yml</code> to trigger the full pipeline.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="trace-deployed-image-to-git-commit">Trace Deployed Image to Git Commit</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Get commit SHA from deployed image digest</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>gcloud<span class="w"> </span>artifacts<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>describe<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="s2">&quot;</span><span class="k">$(</span>gcloud<span class="w"> </span>run<span class="w"> </span>services<span class="w"> </span>describe<span class="w"> </span>SERVICE_NAME<span class="w"> </span>--region<span class="w"> </span>REGION<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">     </span>--format<span class="o">=</span><span class="s1">&#39;value(spec.template.spec.containers[0].image)&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span>--format<span class="o">=</span><span class="s2">&quot;value(tags)&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;,&#39;</span><span class="w"> </span>-f1
+</span></code></pre></div>
+<h3 id="missing-variables">Missing Variables</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>gh<span class="w"> </span>variable<span class="w"> </span>list<span class="w">  </span><span class="c1"># Verify Variables exist</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>apply<span class="w">  </span><span class="c1"># Re-run if missing</span>
+</span></code></pre></div>
+<h3 id="wif-authentication-failed">WIF Authentication Failed</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Check WIF provider</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/bootstrap<span class="w"> </span>output<span class="w"> </span>-raw<span class="w"> </span>workload_identity_provider
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Verify IAM bindings</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>gcloud<span class="w"> </span>projects<span class="w"> </span>get-iam-policy<span class="w"> </span>PROJECT_ID<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span>--flatten<span class="o">=</span><span class="s2">&quot;bindings[].members&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span>--filter<span class="o">=</span><span class="s2">&quot;bindings.members:principalSet*&quot;</span>
+</span></code></pre></div>
+<h3 id="image-push-denied">Image Push Denied</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Verify artifactregistry.writer role</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>gcloud<span class="w"> </span>projects<span class="w"> </span>get-iam-policy<span class="w"> </span>PROJECT_ID<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--flatten<span class="o">=</span><span class="s2">&quot;bindings[].members&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>--filter<span class="o">=</span><span class="s2">&quot;bindings.role:roles/artifactregistry.writer&quot;</span>
+</span></code></pre></div>
+<h3 id="pr-comment-not-posted">PR Comment Not Posted</h3>
+<p>Ensure workflow has <code>pull-requests: write</code> permission.</p>
+<h3 id="build-cache-miss">Build Cache Miss</h3>
+<p>Builds taking longer than expected? Verify <code>keep-buildcache</code> policy exists in bootstrap module.</p>
+<h3 id="terraform-state-lock">Terraform State Lock</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--workflow<span class="o">=</span>ci-cd.yml<span class="w"> </span>--limit<span class="w"> </span><span class="m">10</span><span class="w">  </span><span class="c1"># Find stuck runs</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>gh<span class="w"> </span>run<span class="w"> </span>cancel<span class="w"> </span>RUN_ID<span class="w">  </span><span class="c1"># Cancel if needed</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>terraform<span class="w"> </span>-chdir<span class="o">=</span>terraform/main<span class="w"> </span>force-unlock<span class="w"> </span>LOCK_ID<span class="w">  </span><span class="c1"># Last resort</span>
+</span></code></pre></div>
+<h2 id="workflow-timeouts">Workflow Timeouts</h2>
+<p>Workflows include timeouts to prevent runaway processes. See workflow files for specific values. If timeouts occur frequently, investigate network issues, large build context, or Terraform state locking.</p>
+<h2 id="security-best-practices">Security Best Practices</h2>
+<ul>
+<li><strong>Keyless auth via WIF</strong> - No service account keys, repository-scoped IAM bindings</li>
+<li><strong>Minimal permissions</strong> - Only required IAM roles, workspace isolation for environments</li>
+<li><strong>Encrypted state</strong> - Remote GCS state with versioning and locking</li>
+<li><strong>Immutable images</strong> - SHA-tagged with cleanup policies, multi-platform manifests</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<ol>
+<li>✅ Complete bootstrap setup (see <a href="../terraform-infrastructure/">Terraform Infrastructure Guide</a>)</li>
+<li>✅ Verify GitHub Variables: <code>gh variable list</code></li>
+<li>✅ Test workflow: Create PR, verify plan posted as comment</li>
+<li>✅ Merge PR, verify automatic deployment to Cloud Run</li>
+<li>📖 Monitor deployments: <code>gh run list --workflow=ci-cd.yml</code></li>
+</ol>
+<h2 id="related-documentation">Related Documentation</h2>
+<ul>
+<li><a href="../terraform-infrastructure/">Terraform Infrastructure Guide</a> - Bootstrap and main module setup</li>
+<li><a href="../validating-multiplatform-builds/">Validating Multi-Platform Builds</a> - Verify deployed image provenance</li>
+<li><a href="../development/">Development Guide</a> - Local development workflow</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
